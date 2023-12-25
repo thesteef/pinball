@@ -1,0 +1,185 @@
+#config_version=6
+
+#CobraPin Example Config
+
+mpf:
+  default_pulse_ms: 20
+  report_crashes: never
+
+hardware:
+  platform: opp
+  driverboards: gen2
+
+
+opp:
+  #Use the USB ports defined by your OS for the two STM32 boards
+  # ports: /dev/ttyACM0, /dev/ttyACM1
+  ports: /dev/tty.usbmodem004FD1BB47431, /dev/tty.usbmodem0150D9C947431
+  #USING SERIAL NUMBERS INSTEAD OF CHAINS
+  #  Board 0 has serial number 0, Board 1 has serial number 1.
+  #  This is convenient if your OS tends to reassign the serial port.
+  #  MPF will automatically address the correct board even if the ports
+  #     are swapped.
+
+  #For multiple CobraPin boards in a game, you will either have to give 
+  #  the STM32 boards on the second CobraPin board new serial numbers 
+  #  (10 and 11 are suggested for the 2nd board since 2 is used by the 
+  #  CobraPin Xpansion Board) 
+  #  <OR> Use the chains section to assign a port to a board number. 
+  #  Mixing these up could cause blown FETs, coils, and fuses. Proceed 
+  #  with caution. Test without coil power and use the yellow coil LEDs 
+  #  for feedback.
+  #chains:
+     #0: /dev/ttyACM0
+     #1: /dev/ttyACM1
+
+
+psus:
+  default:
+    #Gives the capacitors extra time to recharge after firing a coil
+    #  and eases the load on the power supply. Doesn't affect autofire
+    #  devices like flippers, pops, slings.
+    release_wait_ms: 50   
+
+
+#One giant config file can get difficult to manage. You can put any of 
+#  these config sections in its own yaml file and link to it with the 
+#  config section here      
+config:
+  - switches.yaml
+  - coils.yaml
+  - lights.yaml
+  - sound.yaml
+  # ...
+
+flippers:
+  left_flipper:
+    main_coil: c_flipper_left
+    activation_switch: s_left_flipper
+  right_flipper:
+    main_coil: c_flipper_right
+    activation_switch: s_right_flipper
+
+autofire_coils:
+  left_slingshot:
+    coil: c_left_slingshot
+    switch: s_left_slingshot
+  right_slingshot:
+    coil: c_right_slingshot
+    switch: s_right_slingshot
+  left_popper:
+    coil: c_left_popper
+    switch: s_left_popper
+  right_pop_bumper:
+    coil: c_right_popper
+    switch: s_right_popper
+
+ball_devices:
+  bd_drain:
+    ball_switches: s_drain
+    eject_coil: c_drain_eject
+    tags: drain, home, trough
+    eject_timeouts: 3s
+  bd_bunker:
+    ball_switches: s_center_eject
+    eject_coil: c_ball_hold
+    eject_timeouts: 3s
+
+playfields:
+  playfield:
+    tags: default
+    default_source_device: bd_drain
+
+machine:
+  balls_installed: 1 #How many balls are physically in your game
+  min_balls: 1 #How few balls can be accounted for before you can start a game
+
+game:
+  balls_per_game: 3
+  max_players: 4
+
+displays:
+  window:
+    width: 800
+    height: 600
+
+slides:
+  welcome_slide:
+    widgets:
+      - type: text
+        text: PINBALL!
+        font_size: 50
+        color: red
+      - type: rectangle
+        width: 240
+        height: 60
+  attract_started:
+    widgets:
+      - text: ATTRACT MODE
+        type: text
+
+slide_player:
+  init_done: welcome_slide
+  mode_attract_started: attract_started
+  ball_started:
+    widgets:
+      type: text
+      text: PLAYER (number) BALL (ball)
+
+keyboard:   #use to drive your game from the computer for testing
+  z:
+    switch: s_left_flipper
+  "/":
+    switch: s_right_flipper
+  "s":
+    switch: s_start
+  "d":
+    switch: s_drain
+    toggle: true
+  "r":
+    switch: s_right_inlane
+  "[":
+    switch: s_left_slingshot
+  "]":
+    switch: s_right_slingshot
+  o:
+    switch: s_left_popper
+  p:
+    switch: s_right_popper
+
+  1:
+   event: simulate_start
+  2:
+   event: simulate_stop
+
+sound_system:
+  tracks:
+    voice:
+      volume: 1
+      priority: 2
+      simultaneous_sounds: 1
+      preload: true
+    sfx:
+      volume: 1
+      priority: 1
+      preload: true
+      simultaneous_sounds: 7
+    music:
+      volume: 0.5
+      simultaneous_sounds: 1
+  buffer: 2048  # previous value was 512
+  frequency: 44100
+  channels: 1
+  master_volume: 1
+  enabled: false
+  
+assets:
+  sounds:
+    default:
+      load: on_demand
+    music:
+      track: music
+    sfx:
+      track: sfx
+    voice:
+      track: voice

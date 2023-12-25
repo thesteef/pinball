@@ -1,0 +1,44 @@
+events:
+  game_ended: 78
+  game_started: 128
+player:
+  score:
+    average: 0.0
+    top:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    total: 96
+switches:
+  s_center_eject: 482
+  s_center_target: 212
+  s_drain: 768
+  s_left_flipper: 2314
+  s_left_inlane: 37
+  s_left_outlane: 55
+  s_left_pop_bumper: 0
+  s_left_popper: 37
+  s_left_slingshot: 806
+  s_left_target_1: 163
+  s_left_target_2: 197
+  s_left_target_3: 153
+  s_right_flipper: 2041
+  s_right_inlane: 123
+  s_right_outlane: 36
+  s_right_pop_bumper: 0
+  s_right_popper: 38
+  s_right_slingshot: 801
+  s_right_target_1: 111
+  s_right_target_2: 160
+  s_right_target_3: 133
+  s_right_upper_target_1: 39
+  s_right_upper_target_2: 41
+  s_spinner: 1740
+  s_start: 93

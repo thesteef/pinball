@@ -1,0 +1,16 @@
+#config_version=6
+
+sound_system:
+  tracks:
+    music:
+      type: standard
+      simultaneous_sounds: 1
+      volume: 0.5
+    voice:
+      type: standard
+      simultaneous_sounds: 1
+      volume: 0.7
+    sfx:
+      type: standard
+      simultaneous_sounds: 8
+      volume: 0.4

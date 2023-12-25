@@ -1,0 +1,50 @@
+#config_version=6
+
+coils:
+  #coil numbers are labelled in silkscreen on the board
+
+  #There are multiple ways to configure flippers, use the one that
+  #  matches your hardware
+  #todo: check hod powers / pulse lengths
+  c_flipper_left:
+    number: 0-0-8           
+    default_hold_power: 1.0
+    default_pulse_ms: 30          
+  c_flipper_right:
+    number: 0-0-9            
+    default_hold_power: 1.0
+    default_pulse_ms: 30          
+
+  c_drain_eject:
+    number: 0-0-10
+    default_pulse_ms: 10       
+
+  c_ball_hold:
+    number: 0-0-14
+    default_pulse_ms: 30          
+
+  c_left_slingshot:
+    number: 1-0-1
+    default_pulse_ms: 5
+    default_pulse_power: 0.4          
+    default_hold_power: 0.15
+  c_right_slingshot:
+    number: 1-0-2
+    default_pulse_ms: 5
+    default_pulse_power: 0.4      
+    default_hold_power: 0.15
+
+  c_left_popper:
+    number: 1-0-3
+    default_pulse_ms: 30          
+  c_right_popper:
+    number: 1-0-4
+    default_pulse_ms: 30          
+
+
+
+#coils:
+# upper playfield
+# left-pop
+# right pop
+# ball-hold
